@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Two Step Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,700;1,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Fixed logo badge, stays pinned in the corner through the whole page -->
+  <div class="brand-tab"><span class="brand-tab-star" aria-hidden="true">★</span>Two Step Collective</div>
+
+  <header class="hero">
+    <p class="eyebrow-pill"><span aria-hidden="true">★</span> Private &amp; Group Lessons</p>
+    <h1>Learn to Two-Step</h1>
+    <p class="hero-sub">A simple, guided path from your first step to the dance floor.</p>
+    <div class="scroll-cue" aria-hidden="true">
+      <span></span>
+      <p>scroll</p>
+    </div>
+  </header>
+
+  <div class="star-strip" aria-hidden="true"></div>
+
+  <!--
+    Scroll-driven "orbit" section. The circle stays fixed on screen (see
+    .journey-sticky in the CSS) while script.js moves each .spiral-item
+    around it in front-to-back loops as the user scrolls. Swap the
+    .center-circle contents for real video/animation later.
+  -->
+  <section class="journey" id="journey">
+    <div class="journey-sticky">
+
+      <div class="center-circle">
+        <div class="center-circle-band"></div>
+        <span class="dancer-mark">★</span>
+      </div>
+      <p class="center-note">dance animation coming soon</p>
+
+      <!-- data-index order = the order each phrase orbits into view -->
+      <div class="spiral-item" data-index="0">Find your rhythm</div>
+      <div class="spiral-item" data-index="1">Learn lead &amp; follow</div>
+      <div class="spiral-item" data-index="2">Build real confidence</div>
+      <div class="spiral-item" data-index="3">Dance with a partner</div>
+      <div class="spiral-item" data-index="4">Two ways to start</div>
+
+    </div>
+  </section>
+
+  <!-- The two paths: data-option ties each card's button to the matching radio in the signup form below -->
+  <section class="options" id="options">
+    <div class="option-card" data-option="private">
+      <span class="option-star" aria-hidden="true">★</span>
+      <h2>Private Lessons</h2>
+      <p class="option-tag">One-on-one</p>
+      <p class="option-price">$125<span>/ lesson</span></p>
+      <p class="option-desc">Focused, personalized instruction built around your pace and goals. Great for beginners, couples, or a wedding first dance.</p>
+      <button class="option-cta" data-option="private">Choose Private</button>
+    </div>
+    <div class="option-card" data-option="group">
+      <span class="option-star" aria-hidden="true">★</span>
+      <h2>Group Sessions</h2>
+      <p class="option-tag">4-week intensive</p>
+      <p class="option-price">$375<span>/ 4-week series</span></p>
+      <p class="option-save">Save 25% vs. private lessons</p>
+      <p class="option-desc">Learn alongside other students in a small group over four weeks — a fun, social way to build skill and confidence together.</p>
+      <button class="option-cta" data-option="group">Choose Group</button>
+    </div>
+  </section>
+
+  <!-- Booking form: no backend yet, script.js just validates and shows the success message below -->
+  <section class="signup" id="signup">
+    <h2>Sign Up</h2>
+    <p class="signup-sub">Tell me a bit about you and I'll follow up to get you scheduled.</p>
+
+    <form id="signup-form" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone <span class="optional">(optional)</span></label>
+        <input type="tel" id="phone" name="phone" />
+      </div>
+
+      <fieldset class="field lesson-type">
+        <legend>Lesson Type</legend>
+        <label class="radio">
+          <input type="radio" name="lessonType" value="private" required />
+          Private Lessons
+        </label>
+        <label class="radio">
+          <input type="radio" name="lessonType" value="group" required />
+          Group Sessions (4-week intensive)
+        </label>
+      </fieldset>
+
+      <div class="field">
+        <label for="message">Message <span class="optional">(optional)</span></label>
+        <textarea id="message" name="message" rows="3" placeholder="Anything I should know? (e.g. wedding date, experience level)"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Request to Book</button>
+    </form>
+
+    <div class="signup-success" id="signup-success" hidden>
+      <p>Thanks — your request has been received. I'll be in touch soon to confirm details.</p>
+    </div>
+  </section>
+
+  <div class="star-strip" aria-hidden="true"></div>
+
+  <footer class="site-footer">
+    <p class="footer-mark"><span aria-hidden="true">★</span> Two Step Collective</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
