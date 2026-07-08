@@ -14,10 +14,32 @@
   <!-- Fixed logo badge, stays pinned in the corner through the whole page -->
   <div class="brand-tab"><span class="brand-tab-star" aria-hidden="true">★</span>Two Step Collective</div>
 
+  <!-- First thing on the page: the star mark alone with a cycling headline, before the main hero -->
+  <section class="intro" id="intro">
+    <div class="intro-star" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100,15 120,72.5 180.8,73.7 132.3,110.5 150,168.8 100,134 50,168.8 67.7,110.5 19.2,73.7 80,72.5" fill="var(--ink)" stroke="var(--ink)" stroke-width="10" stroke-linejoin="round" />
+        <circle cx="82" cy="93" r="10" fill="var(--card-bg)" />
+        <circle cx="118" cy="93" r="10" fill="var(--card-bg)" />
+        <circle cx="83" cy="94" r="3.6" fill="var(--ink)" />
+        <circle cx="119" cy="94" r="3.6" fill="var(--ink)" />
+      </svg>
+    </div>
+    <div class="intro-rotator">
+      <span class="intro-line">Wanna learn how to dance?</span>
+      <span class="intro-line">I promise you can&hellip;</span>
+      <span class="intro-line">Even with two left feet!</span>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">
+      <span></span>
+      <p>scroll</p>
+    </div>
+  </section>
+
   <header class="hero">
     <p class="eyebrow-pill"><span aria-hidden="true">★</span> Private &amp; Group Lessons</p>
     <h1>Learn to Two-Step</h1>
-    <p class="hero-sub">A simple, guided path from your first step to the dance floor.</p>
+    <p class="hero-sub">Your guided path to dancing the night away.</p>
     <div class="scroll-cue" aria-hidden="true">
       <span></span>
       <p>scroll</p>
@@ -29,17 +51,36 @@
   <!--
     Scroll-driven "orbit" section. The circle stays fixed on screen (see
     .journey-sticky in the CSS) while script.js moves each .spiral-item
-    around it in front-to-back loops as the user scrolls. Swap the
-    .center-circle contents for real video/animation later.
+    around it in front-to-back loops as the user scrolls. The two stars in
+    .center-circle orbit each other on a separate, always-on CSS loop
+    (see .orbit-pivot / .orbit-star) independent of scroll position.
   -->
   <section class="journey" id="journey">
     <div class="journey-sticky">
 
       <div class="center-circle">
         <div class="center-circle-band"></div>
-        <span class="dancer-mark">★</span>
+        <div class="orbit-duo" aria-hidden="true">
+          <div class="orbit-pivot orbit-pivot-a">
+            <svg class="orbit-star" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="100,15 120,72.5 180.8,73.7 132.3,110.5 150,168.8 100,134 50,168.8 67.7,110.5 19.2,73.7 80,72.5" fill="var(--ink)" stroke="var(--ink)" stroke-width="10" stroke-linejoin="round" />
+              <circle cx="82" cy="93" r="10" fill="var(--card-bg)" />
+              <circle cx="118" cy="93" r="10" fill="var(--card-bg)" />
+              <circle cx="83" cy="94" r="3.6" fill="var(--ink)" />
+              <circle cx="119" cy="94" r="3.6" fill="var(--ink)" />
+            </svg>
+          </div>
+          <div class="orbit-pivot orbit-pivot-b">
+            <svg class="orbit-star" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="100,15 120,72.5 180.8,73.7 132.3,110.5 150,168.8 100,134 50,168.8 67.7,110.5 19.2,73.7 80,72.5" fill="var(--ink)" stroke="var(--ink)" stroke-width="10" stroke-linejoin="round" />
+              <circle cx="82" cy="93" r="10" fill="var(--card-bg)" />
+              <circle cx="118" cy="93" r="10" fill="var(--card-bg)" />
+              <circle cx="83" cy="94" r="3.6" fill="var(--ink)" />
+              <circle cx="119" cy="94" r="3.6" fill="var(--ink)" />
+            </svg>
+          </div>
+        </div>
       </div>
-      <p class="center-note">dance animation coming soon</p>
 
       <!-- data-index order = the order each phrase orbits into view -->
       <div class="spiral-item" data-index="0">Find your rhythm</div>

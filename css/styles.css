@@ -74,9 +74,65 @@ h1, h2 {
   background-size: 80px 40px;
 }
 
+/* ---------- Intro (first thing on the page) ---------- */
+
+.intro {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.intro-star svg {
+  width: clamp(130px, 20vw, 210px);
+  height: auto;
+}
+
+.intro-rotator {
+  position: relative;
+  width: 100%;
+  max-width: 30ch;
+  height: 2.6em;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-line {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  line-height: 1.25;
+  opacity: 0;
+  animation: line-rotate 9s ease-in-out infinite;
+}
+
+.intro-line:nth-child(1) { animation-delay: 0s; }
+.intro-line:nth-child(2) { animation-delay: 3s; }
+.intro-line:nth-child(3) { animation-delay: 6s; }
+
+@keyframes line-rotate {
+  0%, 100% { opacity: 0; transform: translateY(8px); }
+  8%, 30% { opacity: 1; transform: translateY(0); }
+  38% { opacity: 0; transform: translateY(-8px); }
+}
+
 /* ---------- Hero ---------- */
 
 .hero {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -188,31 +244,53 @@ h1, h2 {
   background: var(--ink);
 }
 
-.dancer-mark {
-  position: relative;
-  z-index: 2;
-  color: var(--chartreuse);
-  font-size: 2rem;
-  margin-bottom: 18%;
-  animation: star-pulse 3.5s ease-in-out infinite;
-}
-
-@keyframes star-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
-
-.center-note {
+/* Two stars orbiting a shared center point. Each .orbit-pivot is a
+   zero-size box that rotates a full turn; the .orbit-star inside it is
+   offset upward by the orbit radius and spins the opposite direction at
+   the same speed, which cancels the parent's rotation so the star stays
+   upright while still tracing the circle. Pivot B is a half-cycle out of
+   phase with pivot A so the two stars stay on opposite sides. */
+.orbit-duo {
   position: absolute;
-  top: calc(50% + 105px);
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  text-align: center;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
+  width: 0;
+  height: 0;
+  z-index: 2;
+}
+
+.orbit-pivot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  animation: orbit-spin 8s linear infinite;
+}
+
+.orbit-pivot-b {
+  animation-delay: -4s;
+}
+
+.orbit-star {
+  position: absolute;
+  top: -61px;
+  left: -19px;
+  width: 38px;
+  height: 38px;
+  animation: orbit-counter-spin 8s linear infinite;
+}
+
+.orbit-pivot-b .orbit-star {
+  animation-delay: -4s;
+}
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-counter-spin {
+  to { transform: rotate(-360deg); }
 }
 
 /* Base look only — position, scale, opacity, and z-index are all driven
@@ -489,13 +567,33 @@ h1, h2 {
 
 @media (max-width: 640px) {
   .center-circle { width: 130px; height: 130px; }
-  .center-note { top: calc(50% + 85px); }
   .brand-tab { font-size: 0.6rem; padding: 0.45rem 0.85rem; }
+
+  /* smaller circle needs a tighter orbit so the stars don't clip its edge */
+  .orbit-star {
+    top: -48px;
+    left: -15px;
+    width: 30px;
+    height: 30px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .scroll-cue span,
-  .dancer-mark { animation: none; }
+  .scroll-cue span { animation: none; }
   .spiral-item { transition: none; }
+
+  .orbit-pivot,
+  .orbit-star { animation: none; }
+  .orbit-pivot-b { transform: rotate(180deg); }
+  .orbit-pivot-b .orbit-star { transform: rotate(-180deg); }
+
+  .intro-rotator { height: auto; flex-direction: column; }
+  .intro-line {
+    position: static;
+    opacity: 1;
+    transform: none;
+    animation: none;
+    margin: 0.2rem 0;
+  }
 }
