@@ -90,6 +90,67 @@
     });
   }
 
+  // ---- Intro orbit: the three headline phrases circling the intro star.
+  // Same depth math as updateOrbit() above (bigger/brighter swinging toward
+  // the viewer, smaller/dimmer swinging away), but driven by elapsed time
+  // instead of scroll position, since this section isn't scroll-linked —
+  // it just loops for as long as the intro is on screen.
+  const introStage = document.querySelector('.intro-orbit-stage');
+  const introItems = introStage ? Array.from(introStage.querySelectorAll('.intro-orbit-text')) : [];
+
+  function introRadius() {
+    return Math.min(110, window.innerWidth * 0.28);
+  }
+
+  function initIntroOrbit() {
+    const m = introItems.length;
+
+    if (reduceMotion) {
+      introItems.forEach((item) => {
+        item.style.position = 'static';
+        item.style.display = 'inline-block';
+        item.style.transform = 'none';
+        item.style.opacity = '1';
+        item.style.margin = '0.3rem 0.6rem';
+      });
+      return;
+    }
+
+    const lapMs = 12000; // time for one phrase to complete a full orbit
+
+    function frame(now) {
+      const r = introRadius();
+
+      introItems.forEach((item, i) => {
+        // each phrase's own 0-1 progress around the loop, evenly offset
+        // from the others by its share of one lap
+        const local = (((now / lapMs) + i / m) % 1 + 1) % 1;
+
+        const angleDeg = 180 + local * 360;
+        const angleRad = (angleDeg * Math.PI) / 180;
+
+        const depth = Math.cos(angleRad);
+        const xOffset = Math.sin(angleRad) * r;
+
+        const scale = 0.35 + ((depth + 1) / 2) * 1.0;
+        const opacity = 0.35 + ((depth + 1) / 2) * 0.65;
+        const tilt = (xOffset / r) * 10;
+
+        item.style.transform = `translate(calc(-50% + ${xOffset}px), -50%) scale(${scale}) rotate(${tilt}deg)`;
+        item.style.opacity = opacity;
+        item.style.zIndex = depth > 0 ? 6 : 1;
+      });
+
+      requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  if (introItems.length) {
+    initIntroOrbit();
+  }
+
   // "Choose Private/Group" buttons: pre-select the matching radio and jump to the form
   const ctaButtons = document.querySelectorAll('.option-cta');
   ctaButtons.forEach((btn) => {

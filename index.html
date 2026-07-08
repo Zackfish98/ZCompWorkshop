@@ -14,21 +14,30 @@
   <!-- Fixed logo badge, stays pinned in the corner through the whole page -->
   <div class="brand-tab"><span class="brand-tab-star" aria-hidden="true">★</span>Two Step Collective</div>
 
-  <!-- First thing on the page: the star mark alone with a cycling headline, before the main hero -->
+  <!--
+    First thing on the page: the star mark sits fixed at the center (playing
+    the same role .center-circle plays in the journey section below), while
+    the three headline phrases orbit it using the exact same depth math as
+    .spiral-item there (see initIntroOrbit in js/script.js) — they grow and
+    brighten swinging toward the viewer, shrink and fade swinging away,
+    just driven by elapsed time instead of scroll position.
+  -->
   <section class="intro" id="intro">
-    <div class="intro-star" aria-hidden="true">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="100,15 120,72.5 180.8,73.7 132.3,110.5 150,168.8 100,134 50,168.8 67.7,110.5 19.2,73.7 80,72.5" fill="var(--ink)" stroke="var(--ink)" stroke-width="10" stroke-linejoin="round" />
-        <circle cx="82" cy="93" r="10" fill="var(--card-bg)" />
-        <circle cx="118" cy="93" r="10" fill="var(--card-bg)" />
-        <circle cx="83" cy="94" r="3.6" fill="var(--ink)" />
-        <circle cx="119" cy="94" r="3.6" fill="var(--ink)" />
-      </svg>
-    </div>
-    <div class="intro-rotator">
-      <span class="intro-line">Wanna learn how to dance?</span>
-      <span class="intro-line">I promise you can&hellip;</span>
-      <span class="intro-line">Even with two left feet!</span>
+    <div class="intro-orbit-wrap">
+      <div class="intro-star" aria-hidden="true">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="100,15 120,72.5 180.8,73.7 132.3,110.5 150,168.8 100,134 50,168.8 67.7,110.5 19.2,73.7 80,72.5" fill="var(--ink)" stroke="var(--ink)" stroke-width="10" stroke-linejoin="round" />
+          <circle cx="82" cy="93" r="10" fill="var(--card-bg)" />
+          <circle cx="118" cy="93" r="10" fill="var(--card-bg)" />
+          <circle cx="83" cy="94" r="3.6" fill="var(--ink)" />
+          <circle cx="119" cy="94" r="3.6" fill="var(--ink)" />
+        </svg>
+      </div>
+      <div class="intro-orbit-stage">
+        <span class="intro-orbit-text">Wanna learn how to dance?</span>
+        <span class="intro-orbit-text">I promise you can&hellip;</span>
+        <span class="intro-orbit-text">Even with two left feet!</span>
+      </div>
     </div>
     <div class="scroll-cue" aria-hidden="true">
       <span></span>
@@ -59,7 +68,6 @@
     <div class="journey-sticky">
 
       <div class="center-circle">
-        <div class="center-circle-band"></div>
         <div class="orbit-duo" aria-hidden="true">
           <div class="orbit-pivot orbit-pivot-a">
             <svg class="orbit-star" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
