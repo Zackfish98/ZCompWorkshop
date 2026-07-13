@@ -1,0 +1,23 @@
+name,start,end,category
+Early Renaissance,1400,1495,Early Period
+High Renaissance,1495,1520,Early Period
+Mannerism,1520,1600,Early Period
+Baroque,1600,1750,Classical
+Rococo,1699,1780,Classical
+Neoclassicism,1750,1850,Classical
+Romanticism,1780,1850,Classical
+Realism,1840,1880,Modern
+Impressionism,1860,1900,Modern
+Post-Impressionism,1880,1905,Modern
+Fauvism,1904,1910,Avant-garde
+Cubism,1907,1920,Avant-garde
+Futurism,1909,1918,Avant-garde
+Dada,1915,1924,Avant-garde
+Surrealism,1924,1966,Avant-garde
+Abstract Expressionism,1943,1965,Experimental
+Pop Art,1955,1970,Experimental
+Minimalism,1960,1975,Experimental
+Conceptual Art,1965,1980,Experimental
+Postmodernism,1970,2000,Contemporary
+Contemporary Art,1970,2024,Contemporary
+Digital Art,2000,2024,Contemporary

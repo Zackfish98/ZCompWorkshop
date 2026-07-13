@@ -559,6 +559,27 @@ h1, h2 {
   color: var(--chartreuse);
 }
 
+.footer-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--bg);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border: 2px solid var(--bg);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.footer-link:hover {
+  background: var(--chartreuse);
+  color: var(--ink);
+  border-color: var(--chartreuse);
+}
+
 /* ---------- Small screens ---------- */
 
 @media (max-width: 640px) {
