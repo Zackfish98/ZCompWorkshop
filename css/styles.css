@@ -63,6 +63,23 @@ h1, h2 {
   font-size: 0.85rem;
 }
 
+/* Second badge, stacked under the first one with a bit of breathing room */
+.brand-tab-secondary {
+  top: 76px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.brand-tab-secondary:hover {
+  background: var(--coral);
+  border-color: var(--coral);
+  color: var(--ink);
+}
+
+.brand-tab-secondary:hover .brand-tab-star {
+  color: var(--ink);
+}
+
 /* ---------- Star strip ---------- */
 
 /* Checkerboard-star divider, drawn as one small SVG tile and repeated horizontally */
@@ -585,6 +602,7 @@ h1, h2 {
 @media (max-width: 640px) {
   .center-circle { width: 130px; height: 130px; }
   .brand-tab { font-size: 0.6rem; padding: 0.45rem 0.85rem; }
+  .brand-tab-secondary { top: 58px; }
 
   /* smaller circle needs a tighter orbit so the stars don't clip its edge */
   .orbit-star {

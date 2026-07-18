@@ -38,13 +38,27 @@ The unused accents (pink, orange, olive, blue) are kept as variables so future s
 
 ## Core Components
 
-- **Brand tab** (`.brand-tab`) — fixed pill badge, top-left, ink background, star + wordmark. Persistent logo across the whole scroll.
+- **Brand tab** (`.brand-tab`) — fixed pill badge, top-left, ink background, star + wordmark. Persistent logo across the whole scroll. Additional badges stack directly underneath using the same class plus a `-secondary` modifier (e.g. `.brand-tab-secondary`, which just overrides `top` to sit below the one above it and adds a coral hover state since it's a link). This is the pattern for any future "jump to a data viz page" links from the main site — don't invent a new nav style, just stack another pill.
 - **Star strip** (`.star-strip`) — repeating checkerboard-star SVG pattern, used as a section divider (after the hero, before the footer).
 - **Pills/badges** (`.eyebrow-pill`, `.option-tag`, `.option-save`) — rounded-full, 2px ink border, bold uppercase label. The standard way to call out a short piece of metadata.
 - **Orbit section** (`#journey`) — scroll-driven centerpiece: a fixed circular object (placeholder for a future dance video) that phrases orbit in front of and behind as the user scrolls. See inline comments in `js/script.js` for the mechanics.
 - **Option cards** (`.option-card`) — bordered, rounded cards for Private Lessons / Group Sessions, each with a star badge, price, and CTA button.
 - **Buttons** (`.option-cta`, `.submit-btn`) — pill-shaped, ink fill by default, coral on hover.
 - **Footer** — inverted (ink background, cream text) to bookend the page with the same contrast as the brand board's dark sections.
+
+## Data viz pages (course exercises)
+
+`ClassTimeline.html` and `DanceStylesSituated.html` (both at the repo root) are D3.js course exercises re-skinned to match the brand, linked from the main site via the footer ("View Class Timeline") and the second brand tab ("Dance Styles Situated"). Their actual chart logic lives in matching `.js` files inside `Data visualization/` (`test.js`, `dance-network.js`) — the HTML files are just brand-styled shells around them.
+
+Since these pages live outside `index.html` and don't load `css/styles.css`, each one repeats the same small set of things directly in a `<style>` block:
+- the same hex values as the `:root` variables in `css/styles.css` (kept in sync by hand — there's no build step tying them together, so if the main palette changes, these need updating too)
+- the Bitter + Space Grotesk Google Fonts link
+- a `.back-link` pill (mirrors `.brand-tab`) pointing back to `index.html`
+- a bordered, rounded container (`#d3-container-*`) that the chart draws into
+
+Because D3 sets colors directly in JS (`.attr('fill', ...)`, `.style('fill', ...)`) rather than through CSS, "brand-styling" a chart means hand-matching every hardcoded color in the script to the palette above — there's no automatic link between the stylesheet and anything D3 draws into an SVG. Fonts are the one exception: SVG `<text>` inherits `font-family` from its CSS ancestors, so setting it once on `<body>` is enough to cover chart labels too.
+
+`dance-network.js` also demonstrates the "single edge-list CSV" pattern for a network graph: rather than the course's usual `nodes.csv` + `edges.csv` pair, it derives the node list automatically from the unique names in a `DanceStyles.csv`'s `source`/`target` columns. Worth knowing if a future graph exercise only has one relationship CSV instead of two.
 
 ## Notes for future changes
 

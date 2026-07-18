@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dance Styles Situated — Two Step Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,700;1,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  /* Same palette + fonts as the main site's css/styles.css, kept local
+     here since this page lives outside that stylesheet's reach */
+  :root {
+    --bg: #f8f3e8;
+    --ink: #191919;
+    --ink-soft: rgba(25, 25, 25, 0.62);
+    --coral: #e16e57;
+    --chartreuse: #e2e88c;
+    --seafoam: #a3c7c5;
+    --blue: #2e72a4;
+    --pink: #d66577;
+    --serif: 'Bitter', Georgia, serif;
+    --sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    padding: 2rem;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    border: 2px solid var(--ink);
+  }
+  .back-link span { color: var(--chartreuse); }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.75rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  p.intro {
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0 0 1.5rem;
+  }
+  #d3-container-3 {
+    background: #fffdfa;
+    border: 2px solid var(--ink);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+
+  <a class="back-link" href="index.html"><span aria-hidden="true">★</span> Back to Two Step Collective</a>
+
+  <h1>Dance Styles, Situated</h1>
+  <p class="intro">A network graph of how different dance styles relate to each other — who taught whom, which styles are close cousins. Drag a node to move it, scroll to zoom, hover a node to see its connections.</p>
+
+  <!--
+    Same hook + script-order pattern as ClassTimeline.html: an empty div
+    that dance-network.js finds by id and fills in at runtime, then D3
+    loaded before the script that depends on it.
+  -->
+  <div id="d3-container-3"></div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="Data%20visualization/dance-network.js"></script>
+</body>
+</html>
