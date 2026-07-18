@@ -1,0 +1,10 @@
+source,target,relationship,course,since,strength,type,department
+Lindy Hop, West Coast Swing,friends,,,0.9,directed
+West Coast Swing, Austin Country Two Step, student-teacher,,,0.8,directed
+East Coast Swing, Ballroom Jive, friends,,,0.7,directed
+East Coast Swing, Hustle, studend-teacher,,,0.6,directed
+Mambo, Hustle, colleagues,,,0.8,directed
+Jitterbug, Austin Country Two Step, colleagues,,,0.7,directed
+European Polka, Early Foxtrot, student-teacher,,,0.9,directed
+Early Foxtrot, Progressive Texas Two Step, colleagues,,,0.8,directed
+Progressive Texas Two Step, Austin Country Two Step, friends,,,0.7,directed
