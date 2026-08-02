@@ -63,20 +63,31 @@ h1, h2 {
   font-size: 0.85rem;
 }
 
-/* Second badge, stacked under the first one with a bit of breathing room */
+/* Second + third badges, stacked under the first one with breathing room
+   between each. Add a fourth by following the same +58px top pattern. */
 .brand-tab-secondary {
   top: 76px;
+}
+
+.brand-tab-tertiary {
+  top: 134px;
+}
+
+.brand-tab-secondary,
+.brand-tab-tertiary {
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
-.brand-tab-secondary:hover {
+.brand-tab-secondary:hover,
+.brand-tab-tertiary:hover {
   background: var(--coral);
   border-color: var(--coral);
   color: var(--ink);
 }
 
-.brand-tab-secondary:hover .brand-tab-star {
+.brand-tab-secondary:hover .brand-tab-star,
+.brand-tab-tertiary:hover .brand-tab-star {
   color: var(--ink);
 }
 
@@ -494,13 +505,13 @@ h1, h2 {
   border-color: var(--coral);
 }
 
-.lesson-type {
+.field-group {
   border: none;
   padding: 0;
   margin: 0 0 1.25rem;
 }
 
-.lesson-type legend {
+.field-group legend {
   font-size: 0.85rem;
   color: var(--ink-soft);
   margin-bottom: 0.5rem;
@@ -550,6 +561,19 @@ h1, h2 {
   border: 2px solid var(--ink);
   border-radius: 12px;
   background: var(--chartreuse);
+}
+
+.firebase-status {
+  text-align: center;
+  margin: 1rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.firebase-status.is-connected {
+  color: var(--blue);
 }
 
 /* ---------- Footer ---------- */
@@ -603,6 +627,7 @@ h1, h2 {
   .center-circle { width: 130px; height: 130px; }
   .brand-tab { font-size: 0.6rem; padding: 0.45rem 0.85rem; }
   .brand-tab-secondary { top: 58px; }
+  .brand-tab-tertiary { top: 98px; }
 
   /* smaller circle needs a tighter orbit so the stars don't clip its edge */
   .orbit-star {

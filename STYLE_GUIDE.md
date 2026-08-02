@@ -44,6 +44,7 @@ The unused accents (pink, orange, olive, blue) are kept as variables so future s
 - **Orbit section** (`#journey`) — scroll-driven centerpiece: a fixed circular object (placeholder for a future dance video) that phrases orbit in front of and behind as the user scrolls. See inline comments in `js/script.js` for the mechanics.
 - **Option cards** (`.option-card`) — bordered, rounded cards for Private Lessons / Group Sessions, each with a star badge, price, and CTA button.
 - **Buttons** (`.option-cta`, `.submit-btn`) — pill-shaped, ink fill by default, coral on hover.
+- **Signup form** (`#signup-form`) — Name/Email/Phone, then three `.field-group` fieldsets (Lesson Type, Preferred Neighborhood, Potential Availability), then an optional message. `.field-group` is the generic fieldset style (no visible border, muted uppercase-ish legend) — reuse it for any future grouped-radio/checkbox question rather than styling a fieldset one-off. Submissions are pushed to Firebase Realtime Database (see `js/firebase-config.js` + the submit handler in `js/script.js`) — one record per signup via `.push()`, plus a small `.firebase-status` line that shows whether the config is actually connected.
 - **Footer** — inverted (ink background, cream text) to bookend the page with the same contrast as the brand board's dark sections.
 
 ## Data viz pages (course exercises)
@@ -59,6 +60,10 @@ Since these pages live outside `index.html` and don't load `css/styles.css`, eac
 Because D3 sets colors directly in JS (`.attr('fill', ...)`, `.style('fill', ...)`) rather than through CSS, "brand-styling" a chart means hand-matching every hardcoded color in the script to the palette above — there's no automatic link between the stylesheet and anything D3 draws into an SVG. Fonts are the one exception: SVG `<text>` inherits `font-family` from its CSS ancestors, so setting it once on `<body>` is enough to cover chart labels too.
 
 `dance-network.js` also demonstrates the "single edge-list CSV" pattern for a network graph: rather than the course's usual `nodes.csv` + `edges.csv` pair, it derives the node list automatically from the unique names in a `DanceStyles.csv`'s `source`/`target` columns. Worth knowing if a future graph exercise only has one relationship CSV instead of two.
+
+`howdyAI.html` (song analyzer, calls the Anthropic API directly from the browser) and `community.html` (aggregated results) follow the exact same shell pattern as the D3 pages above — same `:root` copy, same fonts, same `.back-link`. Verdict badges reuse the existing palette instead of literal red/yellow/green: `--chartreuse` = YES, `--orange` = MAYBE, `--coral` = NO. The real Anthropic API key lives in `js/anthropic-key.js`, which is gitignored — see `js/anthropic-key.example.js` for the placeholder shape. Never hardcode a real key directly into a tracked `.js` file.
+
+Nav badges now stack three deep (`.brand-tab`, `.brand-tab-secondary`, `.brand-tab-tertiary` on the main site) — each one is `top: +58px` from the last. A fourth would follow the same increment.
 
 ## Notes for future changes
 

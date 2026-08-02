@@ -162,8 +162,11 @@
     });
   });
 
-  // Signup form: front-end only for now — validates, then just swaps in a
-  // success message. Nothing is actually sent anywhere yet.
+  // Signup form: validates, pushes the submission to Firebase Realtime
+  // Database (see js/firebase-config.js for the connection), then swaps in
+  // the success message. Each submission gets its own auto-generated key via
+  // .push(), same idea as .set() in the poll tutorial but one record per
+  // person instead of a single shared counter.
   const form = document.getElementById('signup-form');
   const success = document.getElementById('signup-success');
   form.addEventListener('submit', (e) => {
@@ -172,6 +175,21 @@
       form.reportValidity();
       return;
     }
+
+    const data = new FormData(form);
+    if (window.tscDatabase) {
+      window.tscDatabase.ref('signups').push({
+        name: data.get('name'),
+        email: data.get('email'),
+        phone: data.get('phone') || '',
+        lessonType: data.get('lessonType'),
+        neighborhood: data.get('neighborhood'),
+        availability: data.getAll('availability'),
+        message: data.get('message') || '',
+        submittedAt: new Date().toISOString()
+      }).catch((error) => console.error('Error saving signup to Firebase:', error));
+    }
+
     form.hidden = true;
     success.hidden = false;
   });

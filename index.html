@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,700;1,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="css/styles.css" />
+<!-- Firebase SDK (Realtime Database) for the signup form — see js/firebase-config.js -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 </head>
 <body>
 
@@ -16,6 +19,9 @@
 
   <!-- Second fixed badge, same pill style, links out to the network graph page -->
   <a class="brand-tab brand-tab-secondary" href="DanceStylesSituated.html"><span class="brand-tab-star" aria-hidden="true">★</span>Dance Styles Situated</a>
+
+  <!-- Third fixed badge, stacked below the second, links out to the song analyzer -->
+  <a class="brand-tab brand-tab-tertiary" href="howdyAI.html"><span class="brand-tab-star" aria-hidden="true">★</span>Can I Scoot To This?</a>
 
   <!--
     First thing on the page: the star mark sits fixed at the center (playing
@@ -124,7 +130,8 @@
     </div>
   </section>
 
-  <!-- Booking form: no backend yet, script.js just validates and shows the success message below -->
+  <!-- Booking form: validated in script.js, then pushed to Firebase Realtime
+       Database via js/firebase-config.js before showing the success message -->
   <section class="signup" id="signup">
     <h2>Sign Up</h2>
     <p class="signup-sub">Tell me a bit about you and I'll follow up to get you scheduled.</p>
@@ -145,7 +152,7 @@
         <input type="tel" id="phone" name="phone" />
       </div>
 
-      <fieldset class="field lesson-type">
+      <fieldset class="field field-group">
         <legend>Lesson Type</legend>
         <label class="radio">
           <input type="radio" name="lessonType" value="private" required />
@@ -154,6 +161,42 @@
         <label class="radio">
           <input type="radio" name="lessonType" value="group" required />
           Group Sessions (4-week intensive)
+        </label>
+      </fieldset>
+
+      <fieldset class="field field-group">
+        <legend>Preferred Neighborhood</legend>
+        <label class="radio">
+          <input type="radio" name="neighborhood" value="East Village" required />
+          East Village
+        </label>
+        <label class="radio">
+          <input type="radio" name="neighborhood" value="Boerum Hill" required />
+          Boerum Hill
+        </label>
+        <label class="radio">
+          <input type="radio" name="neighborhood" value="Williamsburg" required />
+          Williamsburg
+        </label>
+      </fieldset>
+
+      <fieldset class="field field-group">
+        <legend>Potential Availability <span class="optional">(select all that apply)</span></legend>
+        <label class="radio">
+          <input type="checkbox" name="availability" value="12–2pm" />
+          12:00 – 2:00pm
+        </label>
+        <label class="radio">
+          <input type="checkbox" name="availability" value="2–4pm" />
+          2:00 – 4:00pm
+        </label>
+        <label class="radio">
+          <input type="checkbox" name="availability" value="4–6pm" />
+          4:00 – 6:00pm
+        </label>
+        <label class="radio">
+          <input type="checkbox" name="availability" value="6–8pm" />
+          6:00 – 8:00pm
         </label>
       </fieldset>
 
@@ -168,6 +211,10 @@
     <div class="signup-success" id="signup-success" hidden>
       <p>Thanks — your request has been received. I'll be in touch soon to confirm details.</p>
     </div>
+
+    <!-- Live status from js/firebase-config.js — confirms the form is actually
+         wired to a Realtime Database, not just showing a local success message -->
+    <p class="firebase-status" id="firebase-status">Connecting to Firebase&hellip;</p>
   </section>
 
   <div class="star-strip" aria-hidden="true"></div>
@@ -177,6 +224,7 @@
     <a class="footer-link" href="ClassTimeline.html">View Class Timeline</a>
   </footer>
 
+  <script src="js/firebase-config.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
