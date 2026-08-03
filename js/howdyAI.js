@@ -1,3 +1,5 @@
+
+
 // ANTHROPIC_API_KEY is defined by js/anthropic-key.js, loaded before this
 // file in howdyAI.html — see js/anthropic-key.example.js for the template.
 const DB_URL = "https://twostep-e85a2-default-rtdb.firebaseio.com";
