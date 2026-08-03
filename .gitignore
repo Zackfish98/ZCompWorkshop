@@ -1,2 +1,2 @@
-# Real secrets — never commit. See js/anthropic-key.example.js for the shape.
-js/anthropic-key.js
+# js/anthropic-key.js is intentionally NOT excluded here anymore — see the
+# comment at the top of that file for why.

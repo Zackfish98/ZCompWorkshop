@@ -8,6 +8,17 @@ function getVerdictClass(verdict) {
   return "maybe";
 }
 
+// Lower rank sorts first: YES songs are the whole point of this page, so
+// they're elevated above MAYBE/NO/UNKNOWN regardless of lookup count.
+function verdictRank(verdict) {
+  if (!verdict) return 3;
+  const v = verdict.toUpperCase();
+  if (v.startsWith("YES")) return 0;
+  if (v === "MAYBE") return 1;
+  if (v === "NO") return 2;
+  return 3; // UNKNOWN or anything unrecognized
+}
+
 async function loadSongs() {
   const list = document.getElementById("song-list");
 
@@ -44,9 +55,9 @@ async function loadSongs() {
       songs[key].count++;
     });
 
-    // Sort by most searched
+    // Sort YES verdicts to the top first, then by most searched within each group
     const sorted = Object.values(songs)
-      .sort((a, b) => b.count - a.count);
+      .sort((a, b) => verdictRank(a.verdict) - verdictRank(b.verdict) || b.count - a.count);
 
     list.innerHTML = sorted.map(s => `
       <div class="song-row">
