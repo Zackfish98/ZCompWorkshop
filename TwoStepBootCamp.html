@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Two Step Boot Camp — Two Step Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,700;1,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  /* Same palette + fonts as the main site's css/styles.css, kept local
+     here since this page lives outside that stylesheet's reach */
+  :root {
+    --bg: #f8f3e8;
+    --ink: #191919;
+    --ink-soft: rgba(25, 25, 25, 0.62);
+    --coral: #e16e57;
+    --chartreuse: #e2e88c;
+    --seafoam: #a3c7c5;
+    --blue: #2e72a4;
+    --pink: #d66577;
+    --orange: #f4a556;
+    --olive: #c4bb7b;
+    --card-bg: #fffdfa;
+    --serif: 'Bitter', Georgia, serif;
+    --sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --strip: 40px;
+    --welcome-h: 12rem;
+    /* Video width: as tall as the space above the strip allows, capped so
+       the side columns still fit, and snapped to the 80px star tile so the
+       vertical strips line up with the horizontal one's squares */
+    --video-w: round(down,
+      min(calc((100vh - var(--strip) - var(--welcome-h)) * 812 / 688),
+          calc(100vw - 712px)),
+      80px);
+  }
+
+  html, body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .back-link {
+    position: fixed;
+    top: 1.5rem;
+    left: 2rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    border: 2px solid var(--ink);
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .back-link span { color: var(--chartreuse); }
+  .back-link:hover {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: var(--ink);
+  }
+  .back-link:hover span { color: var(--ink); }
+
+  /* Equal side columns keep the video frame exactly centered, which the
+     star-strip alignment below depends on */
+  .stage {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    column-gap: 1.5rem;
+    padding: 0 2rem;
+  }
+
+  /* ---------- Left: topic links ---------- */
+  .topics {
+    align-self: center;
+    justify-self: start;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .topic-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .topic-btn::before {
+    content: "★";
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    transition: color 0.2s ease;
+  }
+  .topic-btn:hover {
+    border-color: var(--ink);
+  }
+  .topic-btn:hover::before {
+    color: var(--coral);
+  }
+  .topic-btn[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+  .topic-btn[aria-pressed="true"]::before {
+    color: var(--chartreuse);
+  }
+  .topic-btn:focus-visible {
+    outline: 2px solid var(--coral);
+    outline-offset: 2px;
+  }
+
+  /* ---------- Center: video between two vertical star strips ---------- */
+  .video-frame {
+    display: flex;
+    align-self: stretch;
+  }
+  .star-strip-v {
+    width: var(--strip);
+    flex-shrink: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='80' viewBox='0 0 40 80'%3E%3Crect width='40' height='40' fill='%23191919'/%3E%3Crect y='40' width='40' height='40' fill='%23f8f3e8'/%3E%3Cpath transform='translate(20,20)' d='M0,-13 3.8,-4 13,-4 5.9,1.7 9,10.7 0,5.3 -9,10.7 -5.9,1.7 -13,-4 -3.8,-4Z' fill='%23f8f3e8'/%3E%3Cpath transform='translate(20,60)' d='M0,-13 3.8,-4 13,-4 5.9,1.7 9,10.7 0,5.3 -9,10.7 -5.9,1.7 -13,-4 -3.8,-4Z' fill='%23191919'/%3E%3C/svg%3E");
+    background-repeat: repeat-y;
+    background-size: 40px 80px;
+  }
+  /* Bottom squares continue the checkerboard into the horizontal strip:
+     the left strip ends on a cream square, the right one on an ink square */
+  .star-strip-v.left { background-position: left 0 bottom 0; }
+  .star-strip-v.right { background-position: left 0 bottom var(--strip); }
+
+  .video-box {
+    width: var(--video-w);
+    display: flex;
+    align-items: flex-end;
+  }
+  .video-box video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ---------- Right: info panel ---------- */
+  .info-panel {
+    align-self: center;
+    justify-self: end;
+    width: 260px;
+    height: 60%;
+    box-sizing: border-box;
+    padding: 0.5rem 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .info-panel .star-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .info-panel .star-wrap[hidden] {
+    display: none;
+  }
+  .info-panel .star {
+    width: 45%;
+    height: auto;
+  }
+  .info-panel .star path {
+    fill: var(--chartreuse);
+    stroke: var(--ink);
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+  .info-panel h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.35rem;
+    margin: 0 0 0.75rem;
+  }
+  .info-panel p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 0.75rem;
+  }
+  .info-panel section > :last-child {
+    margin-bottom: 0;
+  }
+  .playlist-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--ink);
+    color: var(--bg);
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .playlist-link:hover {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: var(--ink);
+  }
+  .playlist-link:focus-visible {
+    outline: 2px solid var(--coral);
+    outline-offset: 2px;
+  }
+  .info-panel address {
+    font-style: normal;
+  }
+
+  /* ---------- Below: full-width star strip + welcome copy ---------- */
+  .star-strip {
+    flex-shrink: 0;
+    height: var(--strip);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Crect width='40' height='40' fill='%23191919'/%3E%3Crect x='40' width='40' height='40' fill='%23f8f3e8'/%3E%3Cpath transform='translate(20,20)' d='M0,-13 3.8,-4 13,-4 5.9,1.7 9,10.7 0,5.3 -9,10.7 -5.9,1.7 -13,-4 -3.8,-4Z' fill='%23f8f3e8'/%3E%3Cpath transform='translate(60,20)' d='M0,-13 3.8,-4 13,-4 5.9,1.7 9,10.7 0,5.3 -9,10.7 -5.9,1.7 -13,-4 -3.8,-4Z' fill='%23191919'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 80px 40px;
+    /* Tiles are centered on the page, then shifted 40px when half the
+       video width is an odd multiple of 40, so an ink square always sits
+       under the left vertical strip and a cream one under the right */
+    background-position: calc(50% + mod(var(--video-w) / 2, 80px)) 0;
+  }
+  .welcome {
+    flex-shrink: 0;
+    height: var(--welcome-h);
+    box-sizing: border-box;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .welcome p {
+    max-width: 900px;
+  }
+  .welcome h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-style: italic;
+    font-size: 2rem;
+    margin: 0 0 0.6rem;
+  }
+  .welcome p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .welcome .sign-off {
+    margin-top: 0.4rem;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+  <a class="back-link" href="index.html"><span aria-hidden="true">★</span> Two Step Collective</a>
+
+  <main class="stage">
+
+    <ul class="topics">
+      <li><button class="topic-btn" type="button" data-topic="gear" aria-pressed="false">Required gear</button></li>
+      <li><button class="topic-btn" type="button" data-topic="homework" aria-pressed="false">Homework</button></li>
+      <li><button class="topic-btn" type="button" data-topic="where" aria-pressed="false">Where</button></li>
+      <li><button class="topic-btn" type="button" data-topic="when" aria-pressed="false">When</button></li>
+      <li><button class="topic-btn" type="button" data-topic="compensation" aria-pressed="false">Compensation</button></li>
+      <li><button class="topic-btn" type="button" data-topic="extra" aria-pressed="false">Extra curricular</button></li>
+    </ul>
+
+    <!-- Transparent-background video: Safari plays the HEVC .mov (its only
+         alpha-capable format), other browsers skip it and play the VP9 .webm -->
+    <div class="video-frame">
+      <div class="star-strip-v left" aria-hidden="true"></div>
+      <div class="video-box" id="video-box">
+        <video autoplay muted loop playsinline aria-hidden="true">
+          <source src="media/bootcamp-dancers.mov" type='video/quicktime; codecs="hvc1"' />
+          <source src="media/bootcamp-dancers.webm" type="video/webm" />
+        </video>
+      </div>
+      <div class="star-strip-v right" aria-hidden="true"></div>
+    </div>
+
+    <aside class="info-panel" id="info-panel" aria-live="polite">
+
+      <div class="star-wrap" data-topic="default">
+        <svg class="star" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M50 4 L61.8 37.6 L97.6 38.2 L69 59.8 L79.4 94 L50 73.6 L20.6 94 L31 59.8 L2.4 38.2 L38.2 37.6 Z" />
+        </svg>
+      </div>
+
+      <section data-topic="gear" hidden>
+        <h2>Required gear</h2>
+        <p>All one needs to bring are shoes that don’t grip. Cowboy boots are nothing different than a loafer when it comes to spinning. “Leather sole” is usually best but wear what makes you feel good and what you have.</p>
+      </section>
+
+      <section data-topic="homework" hidden>
+        <h2>Homework</h2>
+        <p>I’ve prepared a little playlist for you all that I will be playing for the coming weeks. Give it a listen to get a sense of the beat. A hint is to listen to the bass — that’s what guides most of the dancing.</p>
+        <a class="playlist-link" href="https://open.spotify.com/playlist/22AEWAXf35c0AWh2F1xaXX" target="_blank" rel="noopener">Listen on Spotify <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section data-topic="where" hidden>
+        <h2>Where</h2>
+        <p>Be brave with me y’all. I’m trying a studio in East Williamsburg at</p>
+        <address><p>56 Bogart St, Suite #309<br />Brooklyn, NY 11206</p></address>
+        <p>I will have more details in terms of access when I know.</p>
+      </section>
+
+      <section data-topic="when" hidden>
+        <h2>When</h2>
+        <p>It will be every Thursday from 7–9, starting October 8th and ending October 29th.</p>
+      </section>
+
+      <section data-topic="compensation" hidden>
+        <h2>Compensation</h2>
+        <p>As I am new to the city and still finding spaces I’m asking if y’all can help out in paying to rent the space. Depending on how many people end up signing up will determine how much the ticket is, but it is not an expectation to pay — it would just be very appreciated.</p>
+      </section>
+
+      <section data-topic="extra" hidden>
+        <h2>Extra curricular</h2>
+        <p>I scheduled this so one could go straight from here to a series of bars that are playing live on Thursday. There are also a number of shows on Tuesdays and Wednesdays. Check Skinny Dennis, Wild Horse, and Lucinda’s to start for shows. I’ll try to make a list.</p>
+      </section>
+
+    </aside>
+
+  </main>
+
+  <div class="star-strip" aria-hidden="true"></div>
+
+  <div class="welcome">
+    <h1>Welcome to Two Step Boot Camp!</h1>
+    <p>Welcome to your first dip into the beautiful world we call Country Two Step. In 4 weeks I will teach you all one really needs to know to get out there and wiggle! No prior experience necessary, only an openness to learning by doing and accepting that feeling a little awkward is just part of the joy.</p>
+    <p class="sign-off">See y’all soon!</p>
+  </div>
+
+  <script src="js/bootcamp.js"></script>
+</body>
+</html>
