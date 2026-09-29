@@ -73,27 +73,31 @@
   }
 
   /* ---------- Left: topic links ---------- */
+  /* Hugs the left star strip: right-aligned, with the star bullets on the
+     right so they line up in a column beside the strip */
   .topics {
     align-self: center;
-    justify-self: start;
+    justify-self: end;
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    align-items: flex-end;
+    gap: 0.4rem;
   }
   .topic-btn {
     display: inline-flex;
+    flex-direction: row-reverse;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.55rem;
     background: none;
     border: 2px solid transparent;
     border-radius: 999px;
-    padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+    padding: 0.45rem 0.8rem 0.45rem 1rem;
     font-family: var(--sans);
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--ink);
@@ -156,8 +160,8 @@
   /* ---------- Right: info panel ---------- */
   .info-panel {
     align-self: center;
-    justify-self: end;
-    width: 260px;
+    justify-self: start;
+    width: min(300px, 100%);
     height: 60%;
     box-sizing: border-box;
     padding: 0.5rem 0;
@@ -188,11 +192,11 @@
     font-family: var(--serif);
     font-weight: 700;
     font-style: italic;
-    font-size: 1.35rem;
+    font-size: 1.6rem;
     margin: 0 0 0.75rem;
   }
   .info-panel p {
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     line-height: 1.5;
     margin: 0 0 0.75rem;
   }
@@ -317,15 +321,19 @@
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
       gap: 0.5rem;
       padding: 0 1.25rem;
       align-self: center;
       max-width: 560px;
     }
     /* No hover on touch screens, so the pills need a visible outline to
-       read as tappable */
+       read as tappable. Stars go back in front of the label here. */
     .topic-btn {
       border-color: var(--ink);
+      flex-direction: row;
+      font-size: 0.8rem;
+      padding: 0.4rem 0.9rem 0.4rem 0.7rem;
     }
 
     .info-panel {
@@ -419,7 +427,7 @@
 
       <section data-topic="compensation" hidden>
         <h2>Compensation</h2>
-        <p>As I am new to the city and still finding spaces I’m asking if y’all can help out in paying to rent the space. Depending on how many people end up signing up will determine how much the ticket is, but it is not an expectation to pay — it would just be very appreciated.</p>
+        <p>Sliding scale $10-$30 per class. Anything is appreciated!</p>
       </section>
 
       <section data-topic="extra" hidden>
