@@ -1,7 +1,6 @@
-
-
-// ANTHROPIC_API_KEY is defined by js/anthropic-key.js, loaded before this
-// file in howdyAI.html — see js/anthropic-key.example.js for the template.
+// The API key has been removed from this site. To run the analyzer
+// locally, create js/anthropic-key.js from js/anthropic-key.example.js
+// (it's gitignored) and add a <script> tag for it in howdyAI.html.
 const DB_URL = "https://twostep-e85a2-default-rtdb.firebaseio.com";
 
 async function logToFirebase(song, verdict, bpm) {
@@ -87,6 +86,11 @@ const output = document.getElementById("output");
 button.addEventListener("click", async () => {
   const userMessage = input.value.trim();
   if (!userMessage) return;
+
+  if (typeof ANTHROPIC_API_KEY === "undefined") {
+    output.textContent = "The song analyzer is offline right now — check back soon!";
+    return;
+  }
 
   output.textContent = "Analyzing...";
 

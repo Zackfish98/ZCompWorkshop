@@ -4,6 +4,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Two Step Boot Camp — Two Step Collective</title>
+<meta name="description" content="Four Thursdays of Country Two Step in East Williamsburg, Oct 8–29. No experience necessary." />
+<!-- Link-preview card (iMessage, Instagram, Slack, etc.). Crawlers need
+     absolute URLs, so these point at the live GitHub Pages address. -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Two Step Boot Camp" />
+<meta property="og:description" content="Four Thursdays of Country Two Step in East Williamsburg, Oct 8–29. No experience necessary." />
+<meta property="og:url" content="https://zackfish98.github.io/ZCompWorkshop/TwoStepBootCamp.html" />
+<meta property="og:image" content="https://zackfish98.github.io/ZCompWorkshop/media/bootcamp-preview.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Two silhouetted dancers with star heads, holding hands above a row of stars" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,700;1,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -48,34 +60,6 @@
     display: flex;
     flex-direction: column;
   }
-
-  .back-link {
-    position: fixed;
-    top: 1.5rem;
-    left: 2rem;
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: var(--ink);
-    color: var(--bg);
-    font-weight: 700;
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 0.55rem 1.1rem;
-    border-radius: 999px;
-    border: 2px solid var(--ink);
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-  }
-  .back-link span { color: var(--chartreuse); }
-  .back-link:hover {
-    background: var(--coral);
-    border-color: var(--coral);
-    color: var(--ink);
-  }
-  .back-link:hover span { color: var(--ink); }
 
   /* Equal side columns keep the video frame exactly centered, which the
      star-strip alignment below depends on */
@@ -286,11 +270,97 @@
     margin-top: 0.4rem;
     font-weight: 700;
   }
+
+  /* ---------- Stacked layout (phones + tablets) ----------
+     Below 1100px the three desktop columns leave the video too small, so
+     the page stacks and scrolls: video, star strip, welcome, topics, text.
+     .stage becomes display: contents so its children can be reordered
+     alongside the strip and welcome copy that sit outside it. */
+  @media (max-width: 1099px) {
+    html, body {
+      height: auto;
+    }
+    body {
+      overflow: visible;
+    }
+    .stage {
+      display: contents;
+    }
+    .video-frame { order: 1; }
+    .star-strip { order: 2; background-position: center 0; }
+    .welcome { order: 3; }
+    .topics { order: 4; }
+    .info-panel { order: 5; }
+
+    /* Edge to edge, so dancers cropped at the frame's sides get clipped by
+       the screen edge rather than an arbitrary margin */
+    .video-frame {
+      justify-content: center;
+    }
+    .star-strip-v {
+      display: none;
+    }
+    .video-box {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    .welcome {
+      height: auto;
+      padding: 1.75rem 1.25rem 1.5rem;
+    }
+    .welcome h1 {
+      font-size: 1.6rem;
+    }
+
+    .topics {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0 1.25rem;
+      align-self: center;
+      max-width: 560px;
+    }
+    /* No hover on touch screens, so the pills need a visible outline to
+       read as tappable */
+    .topic-btn {
+      border-color: var(--ink);
+    }
+
+    .info-panel {
+      align-self: center;
+      width: 100%;
+      max-width: 560px;
+      height: auto;
+      overflow: visible;
+      padding: 1.5rem 1.25rem 2.5rem;
+    }
+    .info-panel .star-wrap {
+      display: none;
+    }
+  }
+
+  /* Tablets: the capped video no longer reaches the screen edges, so bring
+     back the vertical strips to frame where the dancers get cropped */
+  @media (min-width: 640px) and (max-width: 1099px) {
+    :root {
+      --video-w: 560px;
+    }
+    .star-strip-v {
+      display: block;
+    }
+    .video-box {
+      width: var(--video-w);
+      max-width: none;
+    }
+    .star-strip {
+      background-position: calc(50% + mod(var(--video-w) / 2, 80px)) 0;
+    }
+  }
 </style>
 </head>
 <body>
-
-  <a class="back-link" href="index.html"><span aria-hidden="true">★</span> Two Step Collective</a>
 
   <main class="stage">
 

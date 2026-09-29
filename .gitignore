@@ -1,2 +1,2 @@
-# js/anthropic-key.js is intentionally NOT excluded here anymore — see the
-# comment at the top of that file for why.
+# Never commit a real Anthropic key — see js/anthropic-key.example.js
+js/anthropic-key.js

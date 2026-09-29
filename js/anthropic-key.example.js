@@ -1,6 +1,5 @@
-// Reference template showing the shape js/anthropic-key.js expects.
-// Note: js/anthropic-key.js is committed with a real key in this project
-// (a deliberate, accepted tradeoff — see the comment at the top of that
-// file). If you fork this repo, swap in your own key over the existing
-// one rather than leaving someone else's live in place.
+// Template for js/anthropic-key.js (gitignored). Copy this file to that
+// name, paste in a key, and add <script src="js/anthropic-key.js"></script>
+// before js/howdyAI.js in howdyAI.html. Local use only — any key loaded on
+// the public GitHub Pages site is visible to every visitor.
 const ANTHROPIC_API_KEY = "your-api-key-here";
